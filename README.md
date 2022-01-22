@@ -119,7 +119,7 @@ if (-f $request_filename)
 
 ### 开源许可证
 
-本项目采用**GNU General Public License (GPL) V3**许可证开源
+本项目采用**Apache-2.0 License **许可证开源
 
 如果**不同意**此许可证，**请勿**使用本程序
 
