@@ -3,7 +3,7 @@ QuickList是Chuanrui系列文件目录列表系统的第二版，可用作下载
 
 该项目前端与CFDL Drive相同，后端代码进行了重写，之前的代码有些冗余。
 
-
+#### 如果无需分离式存储，你可以使用CFDL Drive GitHub仓库：https://github.com/hvjg2578/CFDL-Drive
 
 ### 在开始之前
 
