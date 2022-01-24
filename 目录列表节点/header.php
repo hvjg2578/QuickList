@@ -3,24 +3,19 @@ if($rewrite==false and $_SERVER['REQUEST_URI']=="/")
 {
     header("Location: ".$information["site_url"]."/?f=");
 }
-if(isset($_REQUEST["f"])){$f = str_replace("//", "/", $_REQUEST["f"]);}else{$f="";}
-
+if(isset($_REQUEST["f"])){$f=$_REQUEST["f"];}else{$f="/";}
+$f = str_replace("//", "/", $f);
 $f=rawurlencode($f);
 $f=str_replace("%2F","/",$f);
 if(isset($_POST["password"])){$password=$_POST["password"];}else{$password="";}
-$url = $information["remotesite_url"]."listpass.php?f=".$f."&username=".$information["remotesite_username"]."&password=".$information["remotesite_password"]."&token=".$information["remotesite_token"]."&dirpassword=".$password;
-$array = get_headers($url,1);
-if(preg_match('/200/',$array[0])){ }else{echo "<div class=container><h1>无法连接到数据节点</h1><h2>请检查服务器配置</h2></div>";exit;}
-$listdata=file_get_contents($url);
+$listdata=file_get_contents("http://cfdlser.test.1314.cool/listpass.php?f=".$f."&username=".$information["remotesite_username"]."&password=".$information["remotesite_password"]."&token=".$information["remotesite_token"]."&dirpassword=".$password);
 $listdata=json_decode($listdata,true);
     if ($listdata['code']=="700") 
     {
         $jump=$listdata["data"]['url'];
         $jump=urlencode($jump);
         $jump=str_replace("%3A%2F%2F","://",$jump);
-        $jump=str_replace("%3Ff%3D","?f=",$jump);
         $jump=str_replace("%2F","/",$jump);
-        echo $jump;
         header("Location: ".$jump);
         exit;
     } else if($listdata["code"]=="600"){
@@ -233,6 +228,4 @@ if($listdata["code"]=="100")
 {include("password.php");exit;}
 else if($listdata["code"]=="500")
 {echo "<div class=container><h1>数据节点配置的Token、用户名或密码配置不正确</h1><h2>请检查服务器配置</h2></div>";exit;} 
-else if($listdata["code"]=="000")
-{echo "<div class=container><h1>数据节点的文件信息传递（listpass）功能已经关闭</h1><h2>请检查服务器配置</h2></div>";exit;} 
 ?>
