@@ -37,6 +37,8 @@ QuickList是Chuanrui系列文件目录列表系统的第二版，可用作下载
 
 GitHub仓库：https://github.com/hvjg2578/QuickList
 
+Gitee仓库：https://gitee.com/chenchuanrui/QuickList
+
 
 ### 这是一个非常简洁的说明
 
