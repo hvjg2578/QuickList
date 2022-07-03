@@ -27,15 +27,16 @@ else
 
 function dirpasswordcheck()
 {
-    global $localdir,$f,$information,$jieguo;
+    global $localdir,$f,$information,$jieguo,$rewrite;
     if(is_file($localdir.$f))
     {
         $jieguo["code"]="700";
         if($information["download_method"]=="php")
         {
-            $jieguo["data"]["url"]=$information["site_url"].$f;
+            if($rewrite){$jieguo["data"]["url"]=$information["site_url"].$f;}else{
+            $jieguo["data"]["url"]=$information["site_url"]."?f=".$f;}
         }
-        else $jieguo["data"]["url"]=$information["site_url"].$localdir.$f;
+        else {$jieguo["data"]["url"]=$information["site_url"].$localdir.$f;}
         $jieguo["data"]["url"]=str_replace("./","/",$jieguo["data"]["url"]);
         $json=urldecode(json_encode($jieguo));
         $json=str_replace("&quot;","'",$json);
@@ -43,7 +44,6 @@ function dirpasswordcheck()
         exit;
     }
     else if(!is_dir($localdir."/".$f)){
-        echo $localdir."/".$f;
         $jieguo["code"]="600";
         $json=urldecode(json_encode($jieguo));
         $json=str_replace("&quot;","'",$json);
@@ -98,7 +98,7 @@ function listdata()
             if(is_dir($sub_path))
             {
                 
-                $jieguo["data"]["list"]['dirs'][$dirs]["name"]=rawurlencode($value);
+                $jieguo["data"]["list"]['dirs'][$dirs]["name"]=$value;
                 $jieguo["data"]["list"]['dirs'][$dirs]['date']=date("Y-m-d H:i:s", filemtime($localdir.$f."/".$value));
                 $dirs++;
             }
@@ -107,10 +107,12 @@ function listdata()
                 if($information["download_method"]=="php")
                 {
                     $url=$information["site_url"].$f.'/'.$value;
+                    if(checkvalue(".php",$value)==true||checkvalue(".html",$value)==true){$url=$information["site_url"]."/appcodedl.php?f=".$f.'/'.$value;}
                 }
                 else
                 {
                     $url=$information["site_url"].$localdir.$f.'/'.$value;
+                    if(checkvalue(".php",$value)==true||checkvalue(".html",$value)==true){$url=$information["site_url"]."/appcodedl.php?f=".$f.'/'.$value;}
                 }
                 $url=str_replace("//","/",$url);
                 $url=str_replace("./","/",$url);
@@ -131,6 +133,8 @@ function listdata()
         $jieguo["code"]="300";$jieguo["data"]["totalnum"]="0";$jieguo["data"]["list"]="";
     }
 }
+function checkvalue($abb,$value1)
+{$houzhui=strrev($value1);$houzhui=".".strrev(strchr($houzhui,'.',true));;if(strcasecmp($houzhui,$abb)==0){return true;}else {return false;}}
 function size_unit($num){
     $p = 0;
     $format='Byte';
@@ -160,11 +164,3 @@ function size_unit($num){
 $json=urldecode(json_encode($jieguo));
 $json=str_replace("&quot;","'",$json);
 echo $json;
-function strToUtf8($str){
-    $encode = mb_detect_encoding($str, array("ASCII",'UTF-8',"GB2312","GBK",'BIG5'));
-    if($encode == 'UTF-8'){
-        return $str;
-    }else{
-        return mb_convert_encoding($str, 'UTF-8', $encode);
-    }
-}
