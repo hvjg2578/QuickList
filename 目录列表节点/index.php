@@ -63,8 +63,7 @@ include("Parsedown.php");
                 echo "</td></tr></table></div></div>";
                 }
 function checkvalue($abb,$value1)
-//;count(explode($abb,$value1))>1
-{$houzhui=strrev($value1);$houzhui=strrev(strchr($houzhui,'.',true));;if(".".$houzhui==$abb){return true;}else {return false;}}
+{$houzhui=strrev($value1);$houzhui=".".strrev(strchr($houzhui,'.',true));;if(strcasecmp($houzhui,$abb)==0){return true;}else {return false;}}
 function geticon($value)
 {
     if(checkvalue(".png",$value)||checkvalue(".jpg",$value)||checkvalue(".gif",$value))
