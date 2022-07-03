@@ -103,7 +103,7 @@ video {max-width: 100%;height: auto;}
         echo strToUtf8($codefile);echo "</pre></td></tr></table></div></div>";
   }
 function checkvalue($abb,$value1)
-{if(count(explode($abb,$value1))>1){return true;}else {return false;}};
+{$houzhui=strrev($value1);$houzhui=".".strrev(strchr($houzhui,'.',true));;if(strcasecmp($houzhui,$abb)==0){return true;}else {return false;}}
 function strToUtf8($str){$encode = mb_detect_encoding($str, array("ASCII",'UTF-8',"GB2312","GBK",'BIG5'));if($encode == 'UTF-8'){return $str;}else{return mb_convert_encoding($str, 'UTF-8', $encode);}}?>
 </div>
 </body>
