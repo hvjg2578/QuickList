@@ -76,7 +76,7 @@ function dirpasswordcheck()
 }
 function listdata()
 {
-    global $localdir,$f,$information,$jieguo;
+    global $localdir,$f,$information,$jieguo,$rewrite;
     
     if(file_exists($localdir. $f.'/'))
     {
@@ -107,11 +107,13 @@ function listdata()
                 if($information["download_method"]=="php")
                 {
                     $url=$information["site_url"].$f.'/'.$value;
+                    if(!$rewrite){$url=$information["site_url"]."?f=".$f.'/'.$value;}
                     if(checkvalue(".php",$value)==true||checkvalue(".html",$value)==true){$url=$information["site_url"]."/appcodedl.php?f=".$f.'/'.$value;}
                 }
                 else
                 {
                     $url=$information["site_url"].$localdir.$f.'/'.$value;
+                    if(!$rewrite){$url=$information["site_url"]."?f=".$localdir.$f.'/'.$value;}
                     if(checkvalue(".php",$value)==true||checkvalue(".html",$value)==true){$url=$information["site_url"]."/appcodedl.php?f=".$f.'/'.$value;}
                 }
                 $url=str_replace("//","/",$url);
