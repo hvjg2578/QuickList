@@ -113,7 +113,7 @@ function listdata()
                 else
                 {
                     $url=$information["site_url"].$localdir.$f.'/'.$value;
-                    if(!$rewrite){$url=$information["site_url"]."?f=".$localdir.$f.'/'.$value;}
+                    // if(!$rewrite){$url=$information["site_url"]."?f=".$localdir.$f.'/'.$value;}
                     if(checkvalue(".php",$value)==true||checkvalue(".html",$value)==true){$url=$information["site_url"]."/appcodedl.php?f=".$f.'/'.$value;}
                 }
                 $url=str_replace("//","/",$url);
