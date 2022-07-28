@@ -120,7 +120,7 @@ function listdata()
                 $url=str_replace("./","/",$url);
                 $url=str_replace("http:/","http://",$url);
                 $url=str_replace("https:/","https://",$url);
-                $jieguo["data"]["list"]['files'][$files]['name']=$value;
+                $jieguo["data"]["list"]['files'][$files]['name']=rawurlencode($value);
                 $jieguo["data"]["list"]['files'][$files]['date']=date("Y-m-d H:i:s", filemtime($localdir . $f."/".$value));
                 $jieguo["data"]["list"]['files'][$files]['url']=rawurlencode($url);
                 $jieguo["data"]["list"]['files'][$files]['size']=size_unit(filesize($sub_path));
