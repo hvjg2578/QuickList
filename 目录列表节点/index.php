@@ -43,6 +43,7 @@ include("Parsedown.php");
                 {
                     $url=$listdata["data"]["list"]['files'][$in]["url"];
                     $url=EncodeUrl($url);
+                    echo "<script type='text/javascript'>console.log($url);</script>"; 
                     if($listdata["data"]["list"]['files'][$in]["name"]=="readme.md"){$readme=file_get_contents($url);continue;}
                     $iconnum=geticon($listdata["data"]["list"]['files'][$in]["name"]);
                     if($iconnum!="&#xe24d;") {$url=rawurlencode($url);$url=$information["site_url"]."/remotemedia.php?url=".$url;}
@@ -83,7 +84,8 @@ function geticon($value)
     else{return "&#xe24d;";}
 }
 function EncodeUrl($url)
-{$url=rawurlencode($url);$url=str_replace("%3A%2F%2F","://",$url);$url=str_replace("%2F%2F","/",$url);$url=str_replace("%2F","/",$url);$url=str_replace("%3Ff%3D","?f=",$url);return $url;}
+{$url=rawurlencode($url);$url=str_replace("%3A%2F%2F","://",$url);$url=str_replace("%2F%2F","/",$url);$url=str_replace("%2F","/",$url);$url=str_replace("%3Ff%3D","?f=",$url);$url=str_replace("%3A",":",$url);return $url;}
+
 ?>
 <br><br>
 <footer class="navbar navbar-default navbar-fixed-bottom">
