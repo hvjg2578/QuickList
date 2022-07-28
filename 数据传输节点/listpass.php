@@ -86,7 +86,7 @@ function listdata()
         $i=0;
         $dirs=0;
         $files=0;
-        $jieguo["data"]["pre"]=$p;
+        $jieguo["data"]["pre"]=rawurlencode($p);
         $jieguo["data"]['date']=date("Y-m-d H:i:s", filemtime($localdir));
         foreach ($dir as $value) 
         {
@@ -98,7 +98,7 @@ function listdata()
             if(is_dir($sub_path))
             {
                 
-                $jieguo["data"]["list"]['dirs'][$dirs]["name"]=$value;
+                $jieguo["data"]["list"]['dirs'][$dirs]["name"]=rawurlencode($value);
                 $jieguo["data"]["list"]['dirs'][$dirs]['date']=date("Y-m-d H:i:s", filemtime($localdir.$f."/".$value));
                 $dirs++;
             }
