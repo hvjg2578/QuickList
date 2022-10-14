@@ -13,3 +13,4 @@ $information["remotesite_token"]="chuanrui12345";//数据传输节点用于身�
 $information["remotesite_username"]="admin";//数据传输节点用于身份验证的用户名
 $information["remotesite_password"]="admin";//数据传输节点用于身份验证的密码
 $information["site_url"]="";//目录列表节点地址，例如http://cfdlclient.test.1314.cool/
+$information["password_date"]=3600;//自动保存密码过期时间，设置为0则关闭浏览器即过期
