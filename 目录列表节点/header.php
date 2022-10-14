@@ -3,11 +3,14 @@ if($rewrite==false and $_SERVER['REQUEST_URI']=="/")
 {
     header("Location: ".$information["site_url"]."/?f=");
 }
-if(isset($_REQUEST["f"])){$f = str_replace("//", "/", $_REQUEST["f"]);}else{$f="";}
+if(isset($_REQUEST["f"])){$f = str_replace("//", "/", $_REQUEST["f"]);if($f==" "){$f="/";}
+}else{$f="/";}
 
 $f=rawurlencode($f);
 $f=str_replace("%2F","/",$f);
-if(isset($_POST["password"])){$password=$_POST["password"];}else{$password="";}
+$name=$f.'password';
+if(isset($_COOKIE[$name])){$password=$_COOKIE[$name];}else{$password="";}
+if(isset($_POST["password"])){$password=$_POST["password"];}else{/*$password="";*/}
 $url = $information["remotesite_url"]."listpass.php?f=".$f."&username=".$information["remotesite_username"]."&password=".$information["remotesite_password"]."&token=".$information["remotesite_token"]."&dirpassword=".$password;
 $array = get_headers($url,1);
 if(preg_match('/200/',$array[0])){ }else{echo "<div class=container><h1>无法连接到数据节点</h1><h2>请检查服务器配置</h2></div>";exit;}
@@ -25,6 +28,20 @@ $listdata=json_decode($listdata,true);
         include('404.php');
         exit;
     } 
+    
+$name=$f.'password';
+if(isset($_COOKIE[$name]))
+{
+    //echo($name."cookie=".$_COOKIE[$name]);
+}
+
+    if($listdata["code"]=="200" && $password !=""){
+        $name=$f.'password';
+        //$name=str_replace("/","###",$name);
+    setcookie($name,$password,time()+$information["password_date"]);
+//函数原型:int setcookie(string name,string value,int expire,string path,string domain,int secure)
+    }
+    
     
 ?>
 <!DOCTYPE html>
@@ -44,6 +61,7 @@ $listdata=json_decode($listdata,true);
 	<link href="/css/prettify.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"/>
 	<script type="text/javascript" src="/css/prettify.js"></script>
+	<body style="background-image:url('https://dss0.bdstatic.com/k4oZeXSm1A5BphGlnYG/skin/71.jpg?2');background-repeat:no-repeat;">
 	<style>
 	  
 
@@ -51,22 +69,6 @@ $listdata=json_decode($listdata,true);
     
 	div
 {
-	/*width:100px;*/
-	/*height:100px;*/
-	/*background:red;*/
-	/*visibility: hidden;*/
-	/*opacity: 1;
-	animation:myfirst 0.5s;*/
-	/*-moz-animation:myfirst 0.5s; /* Firefox */
-	/*-webkit-animation:myfirst 0.5s;  Safari and Chrome */
-	/*-o-animation:myfirst 0.5s;  Opera */
-}
-	@keyframes myfirst
-{
-	0%   {width:0px;visibility: hidden;opacity: 1;}
-	/*25%  {display:none;}*/
-	/*50%  {background:blue;}*/
-	100% {width:100%;visibility: visible;opacity: 1;}
 }
 
 @-moz-keyframes myfirst /* Firefox */
@@ -127,6 +129,8 @@ $listdata=json_decode($listdata,true);
 }
 
 .subbox td {
+    background: #f4f4f4;
+    opacity: 0.9;
   padding: 8px 16px;
   font-size: 14px;
   border-bottom: 1px solid #f4f4f4;
