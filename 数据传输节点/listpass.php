@@ -16,6 +16,7 @@ if(isset($_REQUEST['token']) && isset($_REQUEST['username'])&& isset($_REQUEST['
     else 
     {
         $f=$_REQUEST['f'];
+        $f=str_replace("..","",$f);
         dirpasswordcheck();
         
     }
