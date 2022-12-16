@@ -1,6 +1,9 @@
 <?php
 include('listpassconfig.php');
-if(isset($_REQUEST["f"])){$f = str_replace("//", "/", $_REQUEST["f"]);}else{$f="";}
+if(isset($_REQUEST["f"])){$f = str_replace("//", "/", $_REQUEST["f"]);
+$f = str_replace("..", "", $f);
+    
+}else{$f="";}
 if (!is_dir($localdir . $f)) 
 {
     if (file_exists($localdir . $f)) 
