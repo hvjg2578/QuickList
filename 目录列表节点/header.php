@@ -8,6 +8,7 @@ if(isset($_REQUEST["f"])){$f = str_replace("//", "/", $_REQUEST["f"]);if($f==" "
 
 $f=rawurlencode($f);
 $f=str_replace("%2F","/",$f);
+$f=str_replace("..","",$f);
 $name=$f.'password';
 if(isset($_COOKIE[$name])){$password=$_COOKIE[$name];}else{$password="";}
 if(isset($_POST["password"])){$password=$_POST["password"];}else{/*$password="";*/}
@@ -61,7 +62,7 @@ if(isset($_COOKIE[$name]))
 	<link href="/css/prettify.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mdui@1.0.1/dist/css/mdui.min.css"/>
 	<script type="text/javascript" src="/css/prettify.js"></script>
-	<body style="background-image:url('https://dss0.bdstatic.com/k4oZeXSm1A5BphGlnYG/skin/71.jpg?2');background-repeat:no-repeat;">
+	<body style="background-image:url('https://dss0.bdstatic.com/k4oZeXSm1A5BphGlnYG/skin/71.jpg?2');background-repeat:no-repeat;background-attachment: fixed; ">
 	<style>
 	  
 
