@@ -2,8 +2,8 @@
 //本程序由Chuanrui（hvjg2578）编写
 //尊重版权，请勿删除页脚“Powered By”提示
 // include("function.php");
-include("config.php");
-include("Parsedown.php");
+include_once("config.php");
+include_once("Parsedown.php");
 global $information;
 ?>
 <!DOCTYPE html>
